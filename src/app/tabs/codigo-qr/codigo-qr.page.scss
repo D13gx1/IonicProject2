@@ -1,0 +1,62 @@
+ion-button {
+  --background: transparent; /* Fondo transparente */
+  --color: #585858; /* Color del icono */
+  --border-radius: 50px; /* Bordes redondeados */
+  --padding: 0%; /* Sin padding */
+  width: 100%; /* Ocupa el 100% del ancho del contenedor */
+  height: 100px; /* Puedes ajustar la altura según tu necesidad */
+  margin-left: 10px; /* Espaciado entre botones */
+  padding-right: 15px; 
+  margin: 10px;
+}
+
+.logout-button {
+  --background: var(--ion-color-danger); /* Cambia el fondo a rojo, por ejemplo */
+  --color: rgb(29, 27, 27); /* Cambia el color del icono a blanco */
+  --border-radius: 50%; /* Cambia los bordes si lo deseas */
+  width: 50px; /* Ajusta el tamaño del botón */
+  height: 50px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+th {
+  background-color: #f2f2f2;
+}
+
+:host-context(.dark) {
+  ion-content {
+    background-color: black; // Color de fondo en modo oscuro
+  }
+
+  ion-title {
+    color: white !important;  /* Aplica el color blanco */
+  }
+}
+
+ion-toolbar {
+  position: relative;
+  overflow: hidden; // Evita que el texto se vea fuera del contenedor
+}
+
+.moving-text {
+  position: absolute; // Permite que el texto se mueva libremente
+  white-space: nowrap; // Evita que el texto se divida en varias líneas
+  animation: slide 6s linear infinite; // Controla la duración y el tipo de animación
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100%); // Comienza fuera de la pantalla a la izquierda
+  }
+  100% {
+    transform: translateX(100%); // Termina fuera de la pantalla a la derecha
+  }
+}

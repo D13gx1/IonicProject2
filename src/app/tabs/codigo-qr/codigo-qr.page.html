@@ -1,0 +1,88 @@
+<!-- src/app/tabs/mi-info/mi-info.page.html -->
+<app-header></app-header> 
+<!-- 'app-header' is not know element . If  'app-header' is an angular component, then verify that it is incluided in the components.import -->
+
+<ion-header>
+  <ion-toolbar>
+    <h1 class="moving-text">¡Bienvenido al Sistema de Asistencia!</h1>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-button *ngIf="!escaneando" (click)="comenzarEscaneoQR()" expand="full" shape="round">
+    <ion-icon slot="start" name="videocam-outline"></ion-icon>
+    Comenzar Escaneo de QR
+  </ion-button>
+
+  <ion-button *ngIf="escaneando" (click)="detenerEscaneoQR()" expand="full" shape="round">
+    <ion-icon slot="start" name="stopcircle-outline"></ion-icon>
+    Detener Escaneo de QR
+  </ion-button>
+
+  <ion-button (click)="limpiarDatos()" expand="full" shape="round">
+    <ion-icon slot="start" name="trash-outline"></ion-icon>
+    Limpiar Datos
+  </ion-button>
+
+  <video #video [hidden]="!escaneando" width="100%"></video>
+  <canvas #canvas [hidden]> </canvas>
+
+  <ion-card *ngIf="datosQR">
+    <ion-card-header>
+      <ion-card-title>Código QR</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <table>
+        <thead>
+          <tr>
+            <th>Campo</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sede</td>
+            <td>{{ sede }}</td>
+          </tr>
+          <tr>
+            <td>ID Asignatura</td>
+            <td>{{ idAsignatura }}</td>
+          </tr>
+          <tr>
+            <td>Sección</td>
+            <td>{{ seccion }}</td>
+          </tr>
+          <tr>
+            <td>Nombre Asignatura</td>
+            <td>{{ nombreAsignatura }}</td>
+          </tr>
+          <tr>
+            <td>Nombre Profesor</td>
+            <td>{{ nombreProfesor }}</td>
+          </tr>
+          <tr>
+            <td>Día</td>
+            <td>{{ dia }}</td>
+          </tr>
+          <tr>
+            <td>Hora Inicio</td>
+            <td>{{ horaInicio }}</td>
+          </tr>
+          <tr>
+            <td>Hora Fin</td>
+            <td>{{ horaFin }}</td>
+          </tr>
+          <tr>
+            <td>Bloque Inicio</td>
+            <td>{{ bloqueInicio }}</td>
+          </tr>
+          <tr>
+            <td>Bloque Término</td>
+            <td>{{ bloqueTermino }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
