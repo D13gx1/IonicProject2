@@ -15,7 +15,7 @@
     "Login.Label.Password": "Password",
     "Login.Placeholder.Password": "Enter your password here",
     "Login.Button.Login": "Login",
-    "Login.Button.Signin": "Route",
+    "Ruta.Button.GoToDestination": "Route",
     "Login.Button.ForgotPassword": "Forgot my password",
     "Login.Button.DarkMode": "Dark Mode",
 

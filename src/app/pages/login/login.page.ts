@@ -73,4 +73,7 @@ export class LoginPage implements ViewWillEnter {
     
   }
 
+  navigateToDestination(){
+    this.router.navigate(['/ruta']); // Navega a la ruta 'ruta'
+  }
 }
