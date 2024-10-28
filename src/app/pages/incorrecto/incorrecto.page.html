@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Incorrecto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense" >
+    <ion-toolbar>
+      <ion-title size="large">Incorrecto</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="ion-text-center">
+    <!-- Imagen centrada -->
+    <ion-img src="../../../assets/images/abajo-pulgar.jpg" alt="Imagen de error" class="error-image"></ion-img>
+    <br>
+    <h2>La respuesta secreta es incorrecta.</h2>
+    <br>
+    <ion-button expand="full" routerLink="/recuperar">Volver a intentar</ion-button>
+  </div>
+</ion-content>

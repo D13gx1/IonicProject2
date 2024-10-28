@@ -48,5 +48,17 @@ export const routes: Routes = [
   {
     path: 'ruta',
     loadComponent: () => import('./pages/ruta/ruta.page').then(m => m.RutaPage)
+  },  {
+    path: 'recuperar',
+    loadComponent: () => import('./pages/recuperar/recuperar.page').then( m => m.RecuperarPage)
+  },
+  {
+    path: 'correcto',
+    loadComponent: () => import('./pages/correcto/correcto.page').then( m => m.CorrectoPage)
+  },
+  {
+    path: 'incorrecto',
+    loadComponent: () => import('./pages/incorrecto/incorrecto.page').then( m => m.IncorrectoPage)
   }
+
 ];

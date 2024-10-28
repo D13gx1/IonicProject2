@@ -1,0 +1,46 @@
+.success-image {
+  width: 450px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.success-card {
+  
+  border-radius: 20px;
+  padding: 20px;
+  color: black;
+}
+
+.password-card {
+  background-color: white;
+  color: black;
+}
+
+ion-content {
+  background-color: #007BFF !important; /* Cambia esto al color azul que prefieras */
+}
+
+:host {
+  display: block;
+  height: 100vh;
+}
+
+ion-header {
+  background-color: #FFB800; /* Cambia esto al color de fondo que prefieras */
+  color: white; /* Cambia el color del texto a blanco */
+}
+
+ion-toolbar {
+  --background: #FFB800; /* Cambia esto al color de fondo que prefieras */
+  --color: black; /* Cambia el color del texto a blanco */
+}
+
+
+ion-button {
+  background-color: #FFB800; /* Cambia el color de fondo del botón a amarillo */
+  color: black; /* Cambia el color del texto del botón, si es necesario */
+}
+
+ion-button:hover {
+  background-color: #e0a800; /* Cambia el color del botón al pasar el mouse (opcional) */
+}

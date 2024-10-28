@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Recuperación Exitosa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Recuperación Exitosa</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card class="success-card"> <!-- Card con fondo azul -->
+    <ion-card-content class="ion-text-center">
+      <h2>Tu contraseña es:</h2>
+      <ion-card class="password-card">
+        <ion-card-content>
+          <h1>{{ password }}</h1> <!-- Aquí se muestra la contraseña -->
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Imagen centrada -->
+      <ion-img class="success-image" src="../../../assets/img/pulgaaar.jpg" alt="Imagen de éxito"></ion-img>
+      <br>
+      <ion-button expand="full" routerLink="/login">Volver al Login</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

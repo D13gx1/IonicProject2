@@ -110,7 +110,7 @@ export class DataBaseService {
   // forma los programas subscritos a la variable listaUsuarios van a forzar la actualización de sus páginas HTML.
 
   // ReadAll del CRUD. Si existen registros entonces convierte los registros en una lista de usuarios
-  // con la instrucción ".values as Usuario[];". Si la tabla no tiene registros devuelve null.
+  // con la instrucción ".values as Usuario[];". Si la tabla no tiene registros devuelve null. bnh
   async leerUsuarios(): Promise<void> {
     const usuarios: Usuario[]= (await this.db.query('SELECT * FROM USUARIO;')).values as Usuario[];
     this.listaUsuarios.next(usuarios);
