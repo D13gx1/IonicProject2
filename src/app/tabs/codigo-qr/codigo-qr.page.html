@@ -1,14 +1,15 @@
 <!-- src/app/tabs/mi-info/mi-info.page.html -->
-<app-header></app-header> 
+<app-header>
+
+</app-header> 
 <!-- 'app-header' is not know element . If  'app-header' is an angular component, then verify that it is incluided in the components.import -->
 
-<ion-header>
-  <ion-toolbar>
-    <h1 class="moving-text">¡Bienvenido al Sistema de Asistencia!</h1>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
+
+  <ion-toolbar>
+    <p></p>
+  </ion-toolbar>
 
   <ion-button *ngIf="!escaneando" (click)="comenzarEscaneoQR()" expand="full" shape="round">
     <ion-icon slot="start" name="videocam-outline"></ion-icon>
