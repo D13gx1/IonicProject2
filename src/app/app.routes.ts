@@ -33,7 +33,7 @@ export const routes: Routes = [
       },
       {
         path: 'inicio',
-        loadComponent: () => import('./tabs/inicio/inicio.page').then(m => m.InicioPage)
+        loadComponent: () => import('./tabs/foro/foro.page').then(m => m.InicioPage)
       },
       {
         path: 'mi-curso',
@@ -48,7 +48,8 @@ export const routes: Routes = [
   {
     path: 'ruta',
     loadComponent: () => import('./pages/ruta/ruta.page').then(m => m.RutaPage)
-  },  {
+  },
+  {
     path: 'recuperar',
     loadComponent: () => import('./pages/recuperar/recuperar.page').then( m => m.RecuperarPage)
   },

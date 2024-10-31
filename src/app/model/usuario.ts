@@ -13,6 +13,7 @@ export class Usuario extends Persona {
   public respuestaSecreta: string;
   public asistencia: Asistencia;
   public listaUsuarios: Usuario[];
+  
 
   constructor(@Optional() private db?: DataBaseService) {
     super();
@@ -95,6 +96,10 @@ export class Usuario extends Persona {
       ${this.apellido}
       ${this.nivelEducacional.getEducacion()}
       ${this.getFechaNacimiento()}`;
+  }
+
+  async getListaUsuarios(cuenta: string): Promise<void>  {
+    this.db!.eliminarUsuarioUsandoCuenta(cuenta);
   }
 
 }

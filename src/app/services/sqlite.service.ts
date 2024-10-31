@@ -8,6 +8,10 @@ import {
   capSQLiteUpgradeOptions
 } from '@capacitor-community/sqlite';
 
+interface UpgradeStatement {
+  statements: string; // Puedes ajustar esto según tus necesidades
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,17 +21,29 @@ export class SQLiteService {
   platform!: string;
   sqlitePlugin!: CapacitorSQLitePlugin;
   native: boolean = false;
+  userUpgrades: UpgradeStatement[] = []; // Inicializa como un array vacío
+
   
   constructor() { }
 
+
+  
   async inicializarPlugin(): Promise<boolean> {
-    this.platform = Capacitor.getPlatform();
-    if(this.platform === 'ios' || this.platform === 'android') this.native = true;
-    this.sqlitePlugin = CapacitorSQLite;
-    this.sqliteConnection = new SQLiteConnection(this.sqlitePlugin);
-    this.isService = true;
-    return true;
+    try {
+      this.platform = Capacitor.getPlatform();
+      if (this.platform === 'ios' || this.platform === 'android') {
+        this.native = true;
+      }
+      this.sqlitePlugin = CapacitorSQLite;
+      this.sqliteConnection = new SQLiteConnection(this.sqlitePlugin);
+      this.isService = true;
+      return true;
+    } catch (error) {
+      console.error('Error inicializando el plugin de SQLite:', error);
+      return false;
+    }
   }
+  
 
   async inicializarAlmacenamientoWeb(): Promise<void> {
     try {
@@ -62,8 +78,14 @@ export class SQLiteService {
     return await this.sqliteConnection.closeConnection(database, readOnly);
   }
 
-  async crearBaseDeDatos(options: capSQLiteUpgradeOptions): Promise<void> {
-    return await this.sqlitePlugin.addUpgradeStatement(options);
+  async crearBaseDeDatos(dbName: string, encrypted: boolean = false): Promise<void> {
+    const db = await this.abrirBaseDeDatos(dbName, encrypted, 'no-encryption', 1, false);
+    
+    for (const upgrade of this.userUpgrades) {
+        await db.execute(upgrade.statements);
+    }
+
+    await db.close(); // Cierra la conexión después de completar las operaciones
   }
 
   async guardarNombreBaseDeDatos(dbName: string) : Promise<void> {
@@ -72,5 +94,12 @@ export class SQLiteService {
 
   async eliminarBaseDeDatos(dbName: string) {
     return this.sqlitePlugin.deleteDatabase({ database: dbName });
+  }
+
+  private inicializarUpgrades() {
+    this.userUpgrades.push({
+      statements: 'CREATE TABLE IF NOT EXISTS usuarios (id INTEGER PRIMARY KEY, nombre TEXT, correo TEXT)'
+    });
+    // Agrega más declaraciones aquí si es necesario
   }
 }

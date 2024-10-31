@@ -13,16 +13,15 @@ export class AuthService {
 
   keyUsuario = 'USUARIO_AUTENTICADO';
   usuarioAutenticado = new BehaviorSubject<Usuario | null>(null);
+  primerInicioSesion = new BehaviorSubject<boolean>(false);
+  
+  // Propiedades para buscar pregunta secreta
+  correo: string = ''; // Asegúrate de que sea de tipo string
+  usuario?: Usuario; // Hacer que sea opcional
 
-  // La variable primerInicioSesion vale true cuando el usuario digita correctamente sus
-  // credenciales y logra entrar al sistema por primera vez. Pero vale falso, si el 
-  // usuario ya ha iniciado sesión, luego cierra la aplicación sin cerrar la sesión
-  // y vuelve a entrar nuevamente. Si el usuario ingresa por primera vez, se limpian todas
-  // las componentes, pero se dejan tal como están y no se limpian, si el suario
-  // cierra al aplicación y la vuelve a abrir sin haber previamente cerrado la sesión.
-  primerInicioSesion =  new BehaviorSubject<boolean>(false);
-
-  constructor(private router: Router, private bd: DataBaseService, private storage: Storage) { }
+  constructor(private router: Router,
+              private bd: DataBaseService, 
+              private storage: Storage) { }
 
   async inicializarAutenticacion() {
     await this.storage.create();
@@ -54,14 +53,14 @@ export class AuthService {
     await this.storage.get(this.keyUsuario).then(async (usuarioAutenticado) => {
       if (usuarioAutenticado) {
         this.usuarioAutenticado.next(usuarioAutenticado);
-        this.primerInicioSesion.next(false); // Avisar que no es el primer inicio de sesión
+        this.primerInicioSesion.next(false);
         this.router.navigate(['/home']);
       } else {
         await this.bd.buscarUsuarioValido(cuenta, password).then(async (usuario: Usuario | undefined) => {
           if (usuario) {
             showToast(`¡Bienvenido(a) ${usuario.nombre} ${usuario.apellido}!`);
             this.guardarUsuarioAutenticado(usuario);
-            this.primerInicioSesion.next(true); // Avisar que es el primer inicio de sesión
+            this.primerInicioSesion.next(true);
             this.router.navigate(['/tabs/codigo-qr']);
           } else {
             showToast(`El correo o la password son incorrectos`);
@@ -79,7 +78,33 @@ export class AuthService {
         this.eliminarUsuarioAutenticado(usuario);
       }
       this.router.navigate(['/login']);
-    })
+    });
   }
 
+  async buscarUsuarioPorCorreo(correo: string): Promise<Usuario | undefined> {
+    return await this.bd.buscarUsuarioPorCorreo(correo); // Cambiado a 'this.bd'
+  }
+
+  async buscarPreguntaSecreta(correo: string) { // Ahora recibe el correo como parámetro
+    this.correo = correo; // Almacena el correo
+
+    try {
+      this.usuario = await this.buscarUsuarioPorCorreo(this.correo); // Llama al método dentro de AuthService
+      if (this.usuario) {
+        return this.usuario.preguntaSecreta; // Retorna la pregunta secreta
+      } else {
+        this.presentAlert('Usuario no encontrado', 'El correo ingresado no existe.');
+        return '';
+      }
+    } catch (error) {
+      console.error("Error al buscar el usuario:", error);
+      this.presentAlert('Error', 'No se pudo realizar la búsqueda.');
+      return '';
+    }
+  }
+  
+  presentAlert(titulo: string, mensaje: string) {
+    // Implementación de la alerta
+    console.log(`${titulo}: ${mensaje}`); // Placeholder para tu método de alerta
+  }
 }

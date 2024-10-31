@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
-  selector: 'app-inicio',
-  templateUrl: './inicio.page.html',
-  styleUrls: ['./inicio.page.scss'],
+  selector: 'app-foro',
+  templateUrl: './foro.page.html',
+  styleUrls: ['./foro.page.scss'],
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })

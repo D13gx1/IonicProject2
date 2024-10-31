@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonText, IonButto
 import { AlertController } from '@ionic/angular';  
 import { Router } from '@angular/router';  
 import { Usuario } from '../../model/usuario';  
+import { DataBaseService } from '../../services/data-base.service';
 
 @Component({
   selector: 'app-recuperar',
@@ -15,14 +16,15 @@ import { Usuario } from '../../model/usuario';
 })
 export class RecuperarPage implements OnInit {
 
-  cuenta: string = '';  
+  correo: string = '';  
   preguntaSecreta: string = '';  
   respuestaSecreta: string = '';  
   usuario: Usuario | undefined;  
 
   constructor(
     private alertController: AlertController,
-    private router: Router  
+    private router: Router,
+    private dbService: DataBaseService
   ) { }
 
   ngOnInit() {
@@ -31,16 +33,21 @@ export class RecuperarPage implements OnInit {
   }
   
 
-  buscarPreguntaSecreta() {
-    this.usuario = Usuario.getListaUsuarios().find(usu => usu.cuenta === this.cuenta);
-
-    if (this.usuario) {
-      this.preguntaSecreta = this.usuario.preguntaSecreta;
-    } else {
-      this.preguntaSecreta = '';
-      this.presentAlert('Usuario no encontrado', 'La cuenta ingresada no existe.');
+  async buscarPreguntaSecreta() {
+    try {
+      this.usuario = await this.dbService.buscarUsuarioPorCuenta(this.correo);
+      if (this.usuario) {
+        this.preguntaSecreta = this.usuario.preguntaSecreta;
+      } else {
+        this.preguntaSecreta = '';
+        this.presentAlert('Usuario no encontrado', 'El correo ingresado no existe.');
+      }
+    } catch (error) {
+      console.error("Error al buscar el usuario:", error);
+      this.presentAlert('Error', 'No se pudo realizar la búsqueda.');
     }
   }
+  
 
   verificarRespuestaSecreta() {
     if (!this.respuestaSecreta) {
@@ -67,7 +74,7 @@ export class RecuperarPage implements OnInit {
   }
 
   ionViewWillLeave() {
-    this.cuenta = '';
+    this.correo = '';
     this.preguntaSecreta = '';
     this.respuestaSecreta = '';
     this.usuario = undefined;

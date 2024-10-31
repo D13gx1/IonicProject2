@@ -14,11 +14,11 @@
   <!-- Condición para ocultar el input del nombre de la cuenta y mostrar mensaje de bienvenida -->
   <div *ngIf="!usuario">
     <ion-item>
-      <ion-label position="floating">Nombre de la cuenta</ion-label>
-      <ion-input [(ngModel)]="cuenta"></ion-input>
+      <ion-label position="floating">ingrese correo electronico: </ion-label>
+      <ion-input [(ngModel)]="correo"></ion-input>
     </ion-item>
 
-    <ion-button expand="full" (click)="buscarPreguntaSecreta()">Confirmar Nombre</ion-button>
+    <ion-button expand="full" (click)="buscarPreguntaSecreta()">Confirmar correo</ion-button>
   </div>
 
   <!-- Mostrar mensaje de bienvenida cuando se haya encontrado el usuario -->
@@ -39,6 +39,7 @@
     <ion-input [(ngModel)]="respuestaSecreta"></ion-input>
   </ion-item>
 
-  <ion-button expand="full" *ngIf="preguntaSecreta" (click)="verificarRespuestaSecreta()">Verificar Respuesta</ion-button>
-
+  <ion-button expand="full" *ngIf="preguntaSecreta" (click)="verificarRespuestaSecreta()">
+    Verificar Respuesta
+  </ion-button>
 </ion-content>
